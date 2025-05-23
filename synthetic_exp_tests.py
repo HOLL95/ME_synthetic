@@ -1,8 +1,7 @@
 import Surface_confined_inference as sci
 import os
 import subprocess
-subprocess.run(["rm -rf results && rm -rf slurm_logs"], shell=True)
-fileloc="/users/hll537/ME_tests/synthetic_data/data_files"
+fileloc="/users/hll537/ME_tests/data_files/synthetic_data/currents"
 files=[os.path.join(fileloc, x) for x in os.listdir(fileloc)]
 evaluator=sci.BaseMultiExperiment.from_directory("saved_class")
 evaluator.file_list=files
