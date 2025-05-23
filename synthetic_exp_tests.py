@@ -7,7 +7,17 @@ files=[os.path.join(fileloc, x) for x in os.listdir(fileloc)]
 evaluator=sci.BaseMultiExperiment.from_directory("saved_class")
 evaluator.file_list=files
 
-ax_int=sci.AxInterface(name="test", independent_runs=5, num_iterations=10, max_run_time=2, num_cpu=10, simulate_front=False, email="henry.lloyd-laney@york.ac.uk", in_cluster=True, project="chem-electro-2024", rclone_directory="gdrive:automated_testing", GB_ram=16)
+ax_int=sci.AxInterface(name="test", 
+                        independent_runs=20, 
+                        num_iterations=80, 
+                        max_run_time=48, 
+                        results_directory="data_files/split_results",
+                        num_cpu=10, 
+                        simulate_front=True, 
+                        email="henry.lloyd-laney@york.ac.uk", 
+                        in_cluster=True, 
+                        project="chem-electro-2024", 
+                        rclone_directory="gdrive:automated_testing", GB_ram=16)
 ax_int.setup_client(evaluator)
 ax_int.experiment()
-#ax_int.run_bulk_simulation(0, 300)
+

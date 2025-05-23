@@ -46,9 +46,9 @@ v.group_list=[
             {"experiment":"FTACV", "type":"ts", "numeric":{"Hz":{"equals":15}, "mV":{"equals":280}}, "scaling":{"divide":["omega", "delta_E"]}},
             {"experiment":"FTACV", "type":"ft", "numeric":{"Hz":{"equals":15}, "mV":{"equals":280}}, "scaling":{"divide":["omega", "delta_E"]}}]
 
-#v.seperated_parameters={x:[range(0, 2), range(2, 4)] for x in ["E0_std","gamma"]}
+v.seperated_parameters={x:[range(0, 2), range(2, 4)] for x in ["Ru","gamma"]}
 sim_vals=[0.5+sci.un_normalise(np.random.rand(), [-1, 1])*0.2 for x in v._all_parameters]
-with open("synthetic_data/param_values.txt","w" )as f:
+with open("data_files/synthetic_data/param_values.txt","w" )as f:
     f.write("\n".join(["{0}:{1}".format(x,y) for x, y in zip(v._all_parameters, sim_vals)]))
 sim_vals=v.evaluate(sim_vals)
 for key in sim_vals.keys():
@@ -61,6 +61,6 @@ for key in sim_vals.keys():
         times=cls.dim_t(v.classes[key]["times"])
     
     file=np.column_stack((times, cls.dim_i(current)))
-    with open("synthetic_data/data_files/{0}.txt".format(key) ,"w")as f:
+    with open("data_files/synthetic_data/currents/{0}.txt".format(key) ,"w")as f:
         np.savetxt(f, file)
-v.save_class("saved_class", include_data=True)
+v.save_class("data_files/saved_class", include_data=True)
