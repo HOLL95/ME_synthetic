@@ -48,28 +48,11 @@ v.group_list=[
 
 #v.seperated_parameters={x:[range(0, 2), range(2, 4)] for x in ["Ru","gamma"]}
 #v.save_class("data_files/scaled_simple_class", include_data=True)
-saveloc="data_files/even_easier_synthetic/currents/"
-sim_dict=dict(zip(["E0","k0","gamma","Ru", "Cdl","alpha"],  [-0.45, 35, 8e-11, 500,1.25e-4, 0.55]))
-sim_params=[sci._utils.normalise(sim_dict[x], boundaries[x]) for x in v._all_parameters]
-with open("data_files/even_easier_synthetic/param_values.txt","w" )as f:
-    f.write("\n".join(["'{0}':{1}".format(x,y) for x, y in zip(v._all_parameters, sim_params)]))
-sim_vals=v.evaluate(sim_params)
-for key in sim_vals.keys():
-    cls=v.classes[key]["class"]
-    current=sci._utils.add_noise(sim_vals[key], 0.01*max(np.abs(sim_vals[key]))/cls._internal_memory["input_parameters"]["omega"])
-    if "SWV" in key:
-        times=np.linspace(0, 1, len(sim_vals[key])+1)
-        current=np.append(current, 0)
-    else:
-        times=cls.dim_t(v.classes[key]["times"])
-    
-    file=np.column_stack((times, cls.dim_i(current)))
-    with open(os.path.join(saveloc, "{0}.txt".format(key)) ,"w")as f:
-        np.savetxt(f, file)
+saveloc="data_files/even_easier_synthetic/"
 
 
 files=[os.path.join(saveloc, x) for x in os.listdir(saveloc)]
 v.file_list=files
-v.save_class("data_files/scaled_simple_class", include_data=True)
+v.save_class("data_files/save_class_tests", include_data=True)
 
 
